@@ -14,5 +14,6 @@ Route::get('/register', function () {
     return view('user.register');
 });
 
+Route::get('/home', [ListCategoryController::class, 'index']);
 
 // Route::get('/', [CategoryController::class, 'index'])->name('home');

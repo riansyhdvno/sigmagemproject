@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 
 class ListCategoryController extends Controller
 {
-    //
     public function index()
     {
-        $categories = ListCategory::all();
-        return view('home', compact('categories'));
+        $listcategories = ListCategory::with('categories')->get();
+        return view('home', compact('listcategories'));
     }
 }

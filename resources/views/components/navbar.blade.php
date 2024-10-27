@@ -1,4 +1,4 @@
-<nav class="bg-blue-900 border-gray-200 dark:bg-blue-900 relative">
+<nav id="navbar" class="bg-transparent border-gray-200 dark:bg-transparent fixed w-full z-10 top-0 left-0 transition-all duration-300">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="img/scz.png" class="h-12 w-12" alt="Flowbite Logo" />
@@ -16,12 +16,9 @@
             <!-- Dropdown menu -->
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute top-12 right-20 translate-x-[-40%]"
                 id="user-dropdown">
-
-
                 <div class="px-4 py-3">
                     <span class="block text-sm text-gray-900 dark:text-white">Riansyah Divano</span>
-                    <span
-                        class="block text-sm  text-gray-500 truncate dark:text-gray-400">riansyahdivano@gmail.com</span>
+                    <span class="block text-sm text-gray-500 truncate dark:text-gray-400">riansyahdivano@gmail.com</span>
                 </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>
@@ -38,8 +35,7 @@
                     </li>
                     <li>
                         <a href="#"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                            out</a>
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
                     </li>
                 </ul>
             </div>
@@ -79,7 +75,6 @@
                         class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
                 </li>
             </ul>
-
         </div>
     </div>
 </nav>
@@ -101,5 +96,18 @@
                 userDropdown.classList.add('hidden');
             }
         });
+
+        // Change navbar color on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+                        if (window.scrollY > 0) { // adjust this value as needed
+                navbar.classList.remove('bg-transparent');
+                navbar.classList.add('bg-gray-900', 'shadow-md');
+            } else {
+                navbar.classList.add('bg-transparent');
+                navbar.classList.remove('bg-gray-900', 'shadow-md');
+            }
+        });
     });
 </script>
+

@@ -26,7 +26,15 @@
                         Registrasi Akun
                     </h1>
                     <p>Selamat datang di SigmaGem Consign</p>
-                    <form class="space-y-4 md:space-y-6" action="#">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('register.post') }}" method="POST">
+                        @csrf
+
+                        @session('')
+                            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                {{-- <span class="font-medium">Danger alert!</span> Change a few things up and try submitting again. --}}
+                                {{ $value }}
+                            </div>
+                        @endsession
                         <div>
                             {{-- Email --}}
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -67,6 +75,7 @@
             </div>
         </div>
       </section>
+    
     
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>

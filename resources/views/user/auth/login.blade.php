@@ -17,7 +17,7 @@
         <div class="w-full max-w-md bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <div class="p-6 md:p-8 space-y-6">
                 <div class="flex items-center justify-center mb-6">
-                    <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
+                    <img class="w-8 h-8 mr-2" src="img/scz.png" alt="logo">
                     <span class="text-2xl font-semibold text-gray-900 dark:text-white">SigmaGem</span>
                 </div>
                 <h1 class="text-xl font-bold text-center text-gray-900 dark:text-white md:text-2xl">Sign In</h1>
@@ -48,7 +48,7 @@
                     </div>
                     <button type="submit" class="w-full px-5 py-2.5 text-sm font-medium text-white bg-purple-600 rounded-lg">Sign in</button>
                     <p class="text-sm text-center text-gray-500 dark:text-gray-400">
-                        Belum punya akun? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                        Belum punya akun? <a href="/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
                     </p>
                 </form>
             </div>

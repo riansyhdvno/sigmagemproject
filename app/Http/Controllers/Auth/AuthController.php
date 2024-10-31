@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -24,7 +20,7 @@ class AuthController extends Controller
         // validation input login
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:8'
         ]);
 
         //Attempt login
@@ -49,47 +45,5 @@ class AuthController extends Controller
 
         return redirect('/login');
     }
-
-    // public function registration(): View
-    // {
-    //     return view('user.auth.register');
-    // }
-
-    
-
-    // public function postRegistration(Request $request): RedirectResponse
-    // {  
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email|unique:users',
-    //         'password' => 'required|min:6',
-    //     ]);
-           
-    //     $data = $request->all();
-    //     $user = $this->create($data);
-            
-    //     Auth::login($user); 
-
-    //     return redirect("dashboard")->withSuccess('Great! You have Successfully loggedin');
-    // }
-
-    // public function dashboard()
-    // {
-    //     if(Auth::check()){
-    //         return view('dashboard');
-    //     }
-  
-    //     return redirect("login")->withSuccess('Opps! You do not have access');
-    // }
-
-    // public function create(array $data)
-    // {
-    //   return User::create([
-    //     'name' => $data['name'],
-    //     'email' => $data['email'],
-    //     'password' => Hash::make($data['password'])
-    //   ]);
-    // }
-
     
 }

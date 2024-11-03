@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -58,23 +59,25 @@ class AuthController extends Controller
     {
         // Validate data input
         $request->validate([
+            'full_name' => 'required|string|max:64',
             'email' => [
                 'required',
                 'email',
                 'max:64',
                 Rule::unique('users', 'email'), // pastikan email unik
             ],
-            'full_name' => 'required|string|max:64',
             'no_hp' => 'required|digits_between:10,13', // sesuaikan dengan format no hp
             'password' => 'required|min:8', // konfirmasi password
         ]);
 
         //create new user
         User::create([
-            'email' => $request->email,
             'full_name' => $request->full_name,
+            'email' => $request->email,
             'no_hp' => $request->no_hp,
+            'email_verified_at' => now(),
             'password' => Hash::make($request->password),
+            'remember_token' => Str::random(10)
         ]);
 
         //redirect or login after registration

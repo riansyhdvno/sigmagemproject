@@ -13,6 +13,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [ListCategoryController::class, 'index'])->name('home');
 });
 
+Route::get('/profile', function () {
+    return view('user.profile.edit');
+});
+
 // Regis dan Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');

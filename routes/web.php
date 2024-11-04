@@ -11,6 +11,8 @@ use App\Http\Controllers\ListCategoryController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [ListCategoryController::class, 'index'])->name('home');
+    Route::get('/profile/edit', [AuthController::class, 'editProfile'])->name('edit-profile');
+    Route::post('/profile/edit', [AuthController::class, 'updateProfile'])->name('update-profile');
 });
 
 Route::get('/profile', function () {

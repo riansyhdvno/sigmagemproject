@@ -84,4 +84,46 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Registrasi berhasil, selamat datang!');
     }
 
+    public function editProfile()
+    {
+    // Mendapatkan data pengguna saat ini
+        $user = Auth::user();
+        return view('user.profile.edit', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('edit-profile')->with('error', 'User  tidak ditemukan.');
+        }
+
+        // Validasi input
+        $request->validate([
+            'full_name' => 'required|string|max:64',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+            'no_hp' => 'required|digits_between:10,13',
+            'password' => 'nullable|min:8',
+            // Tambahkan validasi lain sesuai kebutuhan
+        ]);
+
+        // Update data pengguna
+        $data = $request->only('full_name', 'email', 'no_hp');
+
+        // Periksa jika password ada di request, lalu enkripsi
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('home')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+
 }

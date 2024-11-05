@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full bg-gray-800">
 
 <head>
     <meta charset="UTF-8">
@@ -12,15 +12,15 @@
     <title>Sign In</title>
 </head>
 
-<body class="h-full bg-gray-50 dark:bg-gray-900">
+<body class="h-full ">
     <section class="flex items-center justify-center px-6 py-8 md:h-screen lg:py-0">
-        <div class="w-full max-w-md bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+        <div class="w-full max-w-md bg-gray-900 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <div class="p-6 md:p-8 space-y-6">
                 <div class="flex items-center justify-center mb-6">
                     <img class="w-8 h-8 mr-2" src="img/scz.png" alt="logo">
-                    <span class="text-2xl font-semibold text-gray-900 dark:text-white">SigmaGem</span>
+                    <span class="text-2xl font-semibold text-white">SigmaGem</span>
                 </div>
-                <h1 class="text-xl font-bold text-center text-gray-900 dark:text-white md:text-2xl">Sign In</h1>
+                <h1 class="text-xl font-bold text-center text-white md:text-2xl">Sign In</h1>
                 
                 {{-- Flash error message --}}
                 @if ($errors->has('error'))
@@ -32,12 +32,12 @@
                 <form method="POST" action="{{ route('login.post') }}" class="space-y-6">
                     @csrf
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email" class="w-full p-2.5 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-primary-600 focus:border-primary-600" placeholder="name@company.com" required>
+                        <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
+                        <input type="email" name="email" id="email" class="w-full p-2.5 border-transparent border border-gray-300 rounded-lg  text-white bg-gray-800 dark:border-gray- dark:text-white focus:ring-primary-600 focus:border-primary-600" placeholder="name@company.com" required>
                     </div>
                     <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" name="password" id="password" class="w-full p-2.5 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-primary-600 focus:border-primary-600" placeholder="••••••••" required>
+                        <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
+                        <input type="password" name="password" id="password" class="w-full p-2.5 border-transparent border border-gray-300 rounded-lg text-gray-900 bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-primary-600 focus:border-primary-600" placeholder="••••••••" required>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">

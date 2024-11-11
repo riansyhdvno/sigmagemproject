@@ -9,7 +9,7 @@ use App\Http\Controllers\ListCategoryController;
 //     return view('home');
 // });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:customer'])->group(function () {
     Route::get('/', [ListCategoryController::class, 'index'])->name('home');
     Route::get('/profile/edit', [AuthController::class, 'editProfile'])->name('edit-profile');
     Route::post('/profile/edit', [AuthController::class, 'updateProfile'])->name('update-profile');

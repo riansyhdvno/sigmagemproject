@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Models\Customer;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,28 +22,32 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // dd("Metode login diakses.");
         // validation input login
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:8'
         ]);
 
-        //Attempt login
-        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+        //Attempt login for customers
+        if (Auth::guard('customer')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            // dd("Login berhasil, akan diarahkan ke halaman utama.");
+            return redirect()->intended(route('home'));
         }
 
         // login failed, return message error
         throw ValidationException::withMessages([
             'error' => 'Email atau password salah.'
         ]);
+
+
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('customer')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -64,14 +69,14 @@ class AuthController extends Controller
                 'required',
                 'email',
                 'max:64',
-                Rule::unique('users', 'email'), // pastikan email unik
+                Rule::unique('customers', 'email'), // pastikan email unik
             ],
-            'no_hp' => 'required|digits_between:10,13', // sesuaikan dengan format no hp
+            'no_hp' => 'required|digits_between:10,13|unique:customers,no_hp', // sesuaikan dengan format no hp
             'password' => 'required|min:8', // konfirmasi password
         ]);
 
         //create new user
-        User::create([
+        Customer::create([
             'full_name' => $request->full_name,
             'email' => $request->email,
             'no_hp' => $request->no_hp,
@@ -87,35 +92,34 @@ class AuthController extends Controller
     public function editProfile()
     {
     // Mendapatkan data pengguna saat ini
-        $user = Auth::user();
+        $user = Auth::guard('customer')->user();
         return view('user.profile.edit', compact('user'));
     }
 
     public function updateProfile(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('customer')->user();
 
         if (!$user) {
-            return redirect()->route('edit-profile')->with('error', 'User  tidak ditemukan.');
+            return redirect()->route('edit-profile')->with('error', 'User tidak ditemukan.');
         }
 
-        // Validasi input
+        // Validate profile update input
         $request->validate([
             'full_name' => 'required|string|max:64',
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($user->id),
+                Rule::unique('customers', 'email')->ignore($user->id),
             ],
-            'no_hp' => 'required|digits_between:10,13',
+            'no_hp' => 'required|digits_between:10,13|unique:customers,no_hp,' . $user->id,
             'password' => 'nullable|min:8',
-            // Tambahkan validasi lain sesuai kebutuhan
         ]);
 
-        // Update data pengguna
+        // Collect data to update
         $data = $request->only('full_name', 'email', 'no_hp');
 
-        // Periksa jika password ada di request, lalu enkripsi
+        // If password is provided, hash and update it
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
